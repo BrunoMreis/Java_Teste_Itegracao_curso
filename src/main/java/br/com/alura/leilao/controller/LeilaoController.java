@@ -2,9 +2,6 @@ package br.com.alura.leilao.controller;
 
 import java.security.Principal;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -22,6 +19,8 @@ import br.com.alura.leilao.dto.NovoLanceDto;
 import br.com.alura.leilao.dto.NovoLeilaoDto;
 import br.com.alura.leilao.model.Leilao;
 import br.com.alura.leilao.model.Usuario;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/leiloes")

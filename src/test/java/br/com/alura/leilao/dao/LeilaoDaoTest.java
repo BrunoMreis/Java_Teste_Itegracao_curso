@@ -1,11 +1,11 @@
 package br.com.alura.leilao.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.persistence.EntityManager;
-
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,7 @@ import br.com.alura.leilao.model.Leilao;
 import br.com.alura.leilao.model.Usuario;
 import br.com.alura.leilao.util.JPAUtil;
 import br.com.alura.leilao.util.builder.LeilaoBuilder;
+import jakarta.persistence.EntityManager;
 
 class LeilaoDaoTest {
 
@@ -48,8 +49,8 @@ class LeilaoDaoTest {
 		leilao = leilaoDao.salvar(leilao);
 
 		Leilao leilaoSalvo = leilaoDao.buscarPorId(leilao.getId());
-		Assert.assertEquals("Desktop", leilaoSalvo.getNome());
-		Assert.assertEquals(new BigDecimal("3000.50"), leilaoSalvo.getValorInicial());
+		assertEquals("Desktop", leilaoSalvo.getNome());
+		assertEquals(new BigDecimal("3000.50"), leilaoSalvo.getValorInicial());
 
 	}
 
@@ -71,7 +72,7 @@ class LeilaoDaoTest {
 		leilao = leilaoDao.salvar(leilao);
 
 		Leilao leilaoSalvo = leilaoDao.buscarPorId(leilao.getId());
-		Assert.assertNotNull(leilaoSalvo);
+		assertNotNull(leilaoSalvo);
 
 	}
 

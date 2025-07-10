@@ -3,20 +3,18 @@ package br.com.alura.leilao.dao;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.com.alura.leilao.model.Leilao;
 import br.com.alura.leilao.model.Usuario;
+import jakarta.persistence.EntityManager;
 
 @Repository
 public class LeilaoDao {
 
 	private EntityManager em;
 
-	@Autowired
+	
 	public LeilaoDao(EntityManager em) {
 		this.em = em;
 	}

@@ -1,15 +1,16 @@
 package br.com.alura.leilao.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.alura.leilao.model.Usuario;
 import br.com.alura.leilao.util.JPAUtil;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 class UsuarioDaoTest {
 	private UsuarioDao usuarioDao;
@@ -33,13 +34,13 @@ class UsuarioDaoTest {
 	@Test
 	void deveEncontrarUsuarioPeloUsername() {
 
-		Assert.assertNotNull(this.user.getNome());
+		assertNotNull(this.user.getNome());
 	}
 
 	@Test
 	void naoDeveEncontrarUsuarioPeloUsername() {
 
-		Assert.assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername("sicrano"));
+		assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername("sicrano"));
 
 	}
 
@@ -48,7 +49,7 @@ class UsuarioDaoTest {
 		Usuario usuario = this.user;
 		this.usuarioDao.deletar(usuario);
 
-		Assert.assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername(usuario.getNome()));
+		assertThrows(NoResultException.class, () -> this.usuarioDao.buscarPorUsername(usuario.getNome()));
 
 	}
 
