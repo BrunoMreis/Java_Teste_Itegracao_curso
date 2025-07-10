@@ -21,23 +21,27 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeHttpRequests(auth -> auth
-				.requestMatchers(HttpMethod.GET, "/").permitAll()
-				.requestMatchers(HttpMethod.GET, "/leiloes").permitAll()
-				.requestMatchers("/api/**").permitAll()
-				.anyRequest().authenticated()
-			)
-			.formLogin(form -> form
-				.loginPage("/login")
-				.defaultSuccessUrl("/leiloes", true)
-				.permitAll()
-			)
-			.logout(logout -> logout
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/leiloes")
-			)
-			.csrf(csrf -> csrf
-				.ignoringRequestMatchers("/api/**"));
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers(HttpMethod.GET, "/").permitAll()
+						.requestMatchers(HttpMethod.GET, "/leiloes").permitAll()
+						.requestMatchers("/api/**").permitAll()
+						.anyRequest()
+						.authenticated())
+				.formLogin(form -> form
+						.loginPage("/login")
+						.defaultSuccessUrl("/leiloes", true)
+						.permitAll())
+				.logout(logout -> logout
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/leiloes"))
+				.csrf(csrf -> csrf
+						.ignoringRequestMatchers("/api/**"));
+		http
+				.httpBasic(httpBasic -> httpBasic.disable())
+				.exceptionHandling(exception -> exception
+						.authenticationEntryPoint(
+								new org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint(
+										"/login?useForward=false")));
 		return http.build();
 	}
 
