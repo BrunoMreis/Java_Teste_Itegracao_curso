@@ -20,7 +20,7 @@
 		<tomcat-embed.version>10.1.43</tomcat-embed.version>
 		<sonar.projectKey>BrunoMreis_Java_Teste_Itegracao_curso</sonar.projectKey>
 		<sonar.organization>brunomreis</sonar.organization>
-		<sonar.token>${env.SONAR_TOKEN}</sonar.token>
+		<sonar.token>${SONAR_TOKEN}</sonar.token>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
