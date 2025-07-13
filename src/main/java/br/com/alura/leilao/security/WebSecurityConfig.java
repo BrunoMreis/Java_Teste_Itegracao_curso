@@ -41,7 +41,7 @@ public class WebSecurityConfig {
 				.exceptionHandling(exception -> exception
 						.authenticationEntryPoint(
 								new org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint(
-										"/login?useForward=false")));
+										"/login")));
 		return http.build();
 	}
 
