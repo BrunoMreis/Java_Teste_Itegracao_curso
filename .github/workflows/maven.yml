@@ -52,7 +52,7 @@ jobs:
     - name: 🚀 Executar SonarQube Scanner
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BrunoMreis_Java_Teste_Itegracao_curso --file pom.xml
+      run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BrunoMreis_Java_Teste_Itegracao_curso -Dsonar.login="$SONAR_TOKEN" --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
