@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      env.SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
     strategy:
