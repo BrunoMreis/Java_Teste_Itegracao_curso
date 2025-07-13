@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CI com Maven
 
 on:
   push:
@@ -18,6 +18,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
     strategy:
       matrix:
         java_version: ['21','24']
@@ -25,14 +30,31 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 24
+    - name: ☕ Instalar JDK
       uses: actions/setup-java@v3
       with:
         java-version: ${{matrix.java_version}}
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+    - name: 🧪 Executar testes com Maven
+      run: mvn test --file pom.xml
+
+    - name: 📊 Gerar relatório de cobertura (opcional)
+      run: mvn jacoco:report -Pcoverage --file pom.xml
+
+    - name: ✅ Verificar resultado
+      if: ${{ success() }}
+      run: echo "Todos os testes passaram! 🎉"
+
+    - name: ❌ Erro nos testes
+      if: ${{ failure() }}
+      run: echo "Alguns testes falharam. 😓"
+
+    - name: 📦 Gera artefatos Maven
       run: mvn -B package --file pom.xml
+    
+    - name: 🚀 Executar SonarQube Scanner
+      run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
