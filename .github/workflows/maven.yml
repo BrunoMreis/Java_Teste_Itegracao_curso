@@ -35,9 +35,6 @@ jobs:
     - name: 🧪 Executar testes com Maven
       run: mvn test --file pom.xml
 
-    - name: 📊 Gerar relatório de cobertura (opcional)
-      run: mvn jacoco:report -Pcoverage --file pom.xml
-
     - name: ✅ Verificar resultado
       if: ${{ success() }}
       run: echo "Todos os testes passaram! 🎉"
@@ -49,10 +46,10 @@ jobs:
     - name: 📦 Gera artefatos Maven
       run: mvn -B package --file pom.xml
     
-    - name: 🚀 Executar SonarQube Scanner
-      env:
-        SONAR_TOKEN: ${{env.SONAR_TOKEN}}
-      run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BrunoMreis_Java_Teste_Itegracao_curso -Dsonar.login=${SONAR_TOKEN} --file pom.xml
+    # - name: 🚀 Executar SonarQube Scanner
+    #   env:
+    #     SONAR_TOKEN: ${{env.SONAR_TOKEN}}
+    #   run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BrunoMreis_Java_Teste_Itegracao_curso -Dsonar.login=${SONAR_TOKEN} --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
