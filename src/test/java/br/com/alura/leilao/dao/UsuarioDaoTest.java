@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.alura.leilao.model.Usuario;
+import br.com.alura.leilao.util.GeradorSenhaService;
 import br.com.alura.leilao.util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -58,7 +59,7 @@ class UsuarioDaoTest {
 		Usuario usuario = new UsuarioBuilder()
 				.comNome("fulano")
 				.comEmail("fulano@fulando.com.br")
-				.comSenha("12345678")
+				.comSenha(GeradorSenhaService.geraStringSegura(16))
 				.criar();
 		em.persist(usuario);
 

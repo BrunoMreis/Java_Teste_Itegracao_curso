@@ -34,7 +34,7 @@ public class Usuario {
 	@Email
 	private String email;
 
-	// Srpign Security
+	// Spring Security
 	private String role;
 	private boolean enabled;
 
