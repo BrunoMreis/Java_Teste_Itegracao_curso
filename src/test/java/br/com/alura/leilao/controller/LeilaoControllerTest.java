@@ -43,7 +43,7 @@ class LeilaoControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/leiloes").with(user("usuario")))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("leiloes"))
-                .andExpect(model().attributeExists("usuarioLogado"));
+                .andExpect(model().attributeExists("pricipalUsuarioLogado"));
     }
 
     @Test

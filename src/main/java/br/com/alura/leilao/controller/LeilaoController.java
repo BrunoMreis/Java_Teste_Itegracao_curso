@@ -36,12 +36,12 @@ public class LeilaoController {
 	public ModelAndView index(Principal principal) {
 		ModelAndView mv = new ModelAndView("leilao/index");
 		mv.addObject("leiloes", leiloes.buscarTodos());
-		mv.addObject("usuarioLogado", principal);
+		mv.addObject("pricipalUsuarioLogado", principal);
 		return mv;
 	}
 
 	@GetMapping("/{id}/form")
-	public ModelAndView form(@PathVariable("id") Long id, Principal principal) {
+	public ModelAndView form(@PathVariable Long id, Principal principal) {
 		Leilao leilao = leiloes.buscarPorId(id);
 		NovoLeilaoDto form = new NovoLeilaoDto(leilao);
 

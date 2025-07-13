@@ -31,10 +31,10 @@
 						<td th:text="${#temporals.format(leilao.dataAbertura, 'dd/MM/yyyy')}">10/02/2020</td>
 						<td th:text="${leilao.valorInicial}">Valor Inicial</td>
 						<td th:text="${leilao.usuario.nome}">Nome do Usuario</td>
-						<td sec:authorize="isAuthenticated()" th:if="${leilao.usuario.nome != usuarioLogado.name && leilao.aberto}">
+						<td sec:authorize="isAuthenticated()" th:if="${leilao.usuario.nome != pricipalUsuarioLogado.name && leilao.aberto}">
 							<a class="btn btn-block btn-info" th:href="@{'/leiloes/' + ${leilao.id}}" >dar lance</a>
 						</td>
-						<td sec:authorize="isAuthenticated()" th:if="${leilao.usuario.nome == usuarioLogado.name} ">
+						<td sec:authorize="isAuthenticated()" th:if="${leilao.usuario.nome == pricipalUsuarioLogado.name} ">
 							<a class="btn btn-block btn-primary m-0" th:href="@{'/leiloes/' + ${leilao.id}} + '/form'">editar</a>
 						</td>
 					</tr>

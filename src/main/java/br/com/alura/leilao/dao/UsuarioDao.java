@@ -17,9 +17,11 @@ public class UsuarioDao {
 	
 
 	public Usuario buscarPorUsername(String username) {
-		return em.createQuery("SELECT u FROM Usuario u WHERE u.nome = :username", Usuario.class)
+		 Usuario usuarioEncontrado = em.createQuery("SELECT u FROM Usuario u WHERE u.nome = :username", Usuario.class)
 				.setParameter("username", username)
 				.getSingleResult();
+		 
+		 return usuarioEncontrado;
 	}
 
 	public void deletar(Usuario usuario) {
