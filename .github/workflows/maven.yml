@@ -1,18 +1,11 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI com Maven
 
 on:
   push:
-    branches: [ "main", "feture/*","develop", "release/*" ]
+    branches: [ "main", "feture/*","develop", "release/*", "hotfix/*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
@@ -21,36 +14,30 @@ jobs:
  
     strategy:
       matrix:
-        java_version: ['21']
+        java_version: ['21', 'default']
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
     - uses: actions/checkout@v3
-    - name: ☕ Instalar JDK
+    - name: ☕ Instalar JDK [${{matrix.java_version}}] temurin
       uses: actions/setup-java@v3
       with:
         java-version: ${{matrix.java_version}}
         distribution: 'temurin'
         cache: maven
-    - name: 🧪 Executar testes com Maven
-      run: mvn test --file pom.xml
+    - name: 🧪 Run tests with Maven
+      run: mvn test -B -e --file pom.xml
 
-    - name: ✅ Verificar resultado
+    - name: ✅ Check Results
       if: ${{ success() }}
-      run: echo "Todos os testes passaram! 🎉"
+      run: echo "Tests have been successful 🎉"
 
-    - name: ❌ Erro nos testes
+    - name: ❌ Tests error
       if: ${{ failure() }}
-      run: echo "Alguns testes falharam. 😓"
+      run: echo "Some tests failed 😓"
 
-    - name: 📦 Gera artefatos Maven
+    - name: 📦 Generate a Maven artifect 
       run: mvn -B package --file pom.xml
-    
-    # - name: 🚀 Executar SonarQube Scanner
-    #   env:
-    #     SONAR_TOKEN: ${{env.SONAR_TOKEN}}
-    #   run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BrunoMreis_Java_Teste_Itegracao_curso -Dsonar.login=${SONAR_TOKEN} --file pom.xml
-
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+        
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
