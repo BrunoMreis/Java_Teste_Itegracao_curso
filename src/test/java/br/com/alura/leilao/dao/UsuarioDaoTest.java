@@ -36,6 +36,8 @@ class UsuarioDaoTest {
 	void deveEncontrarUsuarioPeloUsername() {
 
 		assertNotNull(this.user.getNome());
+		Usuario usuarioEncontrado = this.usuarioDao.buscarPorUsername(this.user.getNome());
+		assertNotNull(usuarioEncontrado);
 	}
 
 	@Test
