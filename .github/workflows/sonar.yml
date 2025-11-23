@@ -34,4 +34,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B verify -Pcoverage jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.login=${{ secrets.SONAR_TOKEN }} 
+          mvn -B verify -Pcoverage jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.token=${{ secrets.SONAR_TOKEN }} 
