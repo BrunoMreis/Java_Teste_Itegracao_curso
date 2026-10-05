@@ -15,26 +15,29 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import br.com.alura.leilao.dao.LeilaoDao;
 import br.com.alura.leilao.dao.UsuarioDao;
 import br.com.alura.leilao.model.Leilao;
 import br.com.alura.leilao.model.Usuario;
+import br.com.alura.leilao.security.WebSecurityConfig;
 
 @WebMvcTest(LeilaoController.class)
+@Import(WebSecurityConfig.class)
 class LeilaoControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private LeilaoDao leilaoDao;
 
-    @MockBean
+    @MockitoBean
     private UsuarioDao usuarioDao;
 
     @Test
