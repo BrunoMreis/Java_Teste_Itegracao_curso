@@ -21,6 +21,7 @@ public class ErrorController {
 		String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
 		model.addAttribute("errorMessage", errorMessage);
 		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+		model.addAttribute("reasonPhrase", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
 		return "error";
 	}
 	
@@ -30,7 +31,8 @@ public class ErrorController {
 		logger.error("Data integrity violation exception", ex);
 	    model.addAttribute("errorMessage", "Erro de integridade de dados" );
 	    model.addAttribute("status", HttpStatus.BAD_REQUEST.value());
-	    return "error";
+		model.addAttribute("reasonPhrase", HttpStatus.BAD_REQUEST.getReasonPhrase());
+		return "error";
 	}
 
 }

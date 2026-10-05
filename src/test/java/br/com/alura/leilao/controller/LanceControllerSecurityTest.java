@@ -15,19 +15,26 @@ import br.com.alura.leilao.service.LanceService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import br.com.alura.leilao.dao.UsuarioDao;
+import br.com.alura.leilao.security.WebSecurityConfig;
 
 @WebMvcTest(LanceController.class)
+@Import(WebSecurityConfig.class)
 class LanceControllerSecurityTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private LanceService lanceService;
+
+    @MockitoBean
+    private UsuarioDao usuarioDao;
 
     @Test
     void deveNegarPostSemCsrf() throws Exception {
@@ -50,13 +57,15 @@ class LanceControllerSecurityTest {
                 .param("leilaoId", "1")
                 .param("valor", "100.0")
                 .with(csrf()))
-                .andExpect(status().isUnauthorized()); // 401 esperado sem autenticação
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login")); // 401 esperado sem autenticação
                
     }
 
     @Test
-    void deveNegarGetNaoPermitido() throws Exception {
+    void deveRedirecionarGetSemAutenticacaoParaLogin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/lances"))
-                .andExpect(status().is4xxClientError()); // 403 ou 405
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
     }
 }
